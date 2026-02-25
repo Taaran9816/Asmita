@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asmita Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf7f2;
+    --dark: #1a1208;
+    --rust: #c45c2a;
+    --gold: #d4a843;
+    --sage: #7a8c6e;
+    --warm-gray: #9e9087;
+    --card-bg: #fff9f3;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘DM Sans’, sans-serif;
+background: var(–cream);
+color: var(–dark);
+min-height: 100vh;
+}
+
+/* HEADER */
+header {
+background: var(–dark);
+color: var(–cream);
+padding: 0 2rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: sticky;
+top: 0;
+z-index: 100;
+height: 70px;
+box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.logo {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.8rem;
+letter-spacing: 0.05em;
+color: var(–gold);
+}
+
+.logo span {
+font-style: italic;
+color: var(–cream);
+font-size: 0.9rem;
+display: block;
+letter-spacing: 0.25em;
+font-family: ‘DM Sans’, sans-serif;
+font-weight: 300;
+text-transform: uppercase;
+margin-top: -6px;
+}
+
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a {
+color: var(–cream);
+text-decoration: none;
+font-size: 0.85rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+opacity: 0.75;
+transition: opacity 0.2s;
+}
+nav a:hover { opacity: 1; }
+
+.cart-btn {
+background: var(–rust);
+color: white;
+border: none;
+padding: 0.5rem 1.2rem;
+border-radius: 30px;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+transition: background 0.2s, transform 0.1s;
+position: relative;
+}
+.cart-btn:hover { background: #a84d22; transform: scale(1.03); }
+.cart-count {
+background: var(–gold);
+color: var(–dark);
+border-radius: 50%;
+width: 20px;
+height: 20px;
+font-size: 0.75rem;
+font-weight: 700;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* HERO */
+.hero {
+background: linear-gradient(135deg, var(–dark) 0%, #2e1f0a 60%, #4a2e12 100%);
+color: var(–cream);
+padding: 5rem 3rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+overflow: hidden;
+position: relative;
+}
+.hero::before {
+content: ‘’;
+position: absolute;
+right: -100px;
+top: -100px;
+width: 500px;
+height: 500px;
+border-radius: 50%;
+background: radial-gradient(circle, rgba(212,168,67,0.15), transparent 70%);
+}
+.hero-text h1 {
+font-family: ‘Playfair Display’, serif;
+font-size: clamp(2.5rem, 5vw, 4.5rem);
+line-height: 1.1;
+max-width: 550px;
+}
+.hero-text h1 em {
+font-style: italic;
+color: var(–gold);
+}
+.hero-text p {
+margin-top: 1rem;
+opacity: 0.7;
+max-width: 420px;
+line-height: 1.7;
+font-size: 1rem;
+}
+.hero-cta {
+margin-top: 2rem;
+display: inline-block;
+background: var(–gold);
+color: var(–dark);
+padding: 0.85rem 2.2rem;
+border-radius: 40px;
+font-weight: 500;
+text-decoration: none;
+cursor: pointer;
+border: none;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.95rem;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(212,168,67,0.4); }
+
+.hero-badge {
+background: rgba(255,255,255,0.08);
+border: 1px solid rgba(212,168,67,0.3);
+border-radius: 20px;
+padding: 2rem 2.5rem;
+text-align: center;
+backdrop-filter: blur(10px);
+}
+.hero-badge .big { font-family: ‘Playfair Display’, serif; font-size: 3rem; color: var(–gold); }
+.hero-badge small { display: block; opacity: 0.6; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.25rem; }
+
+/* FILTERS */
+.filter-bar {
+padding: 1.5rem 2rem;
+background: white;
+border-bottom: 1px solid rgba(0,0,0,0.07);
+display: flex;
+gap: 1rem;
+align-items: center;
+flex-wrap: wrap;
+}
+.filter-bar span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(–warm-gray); margin-right: 0.5rem; }
+.filter-btn {
+padding: 0.4rem 1.1rem;
+border-radius: 20px;
+border: 1.5px solid rgba(0,0,0,0.15);
+background: transparent;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+transition: all 0.2s;
+color: var(–dark);
+}
+.filter-btn:hover, .filter-btn.active {
+background: var(–rust);
+border-color: var(–rust);
+color: white;
+}
+
+.search-box {
+margin-left: auto;
+display: flex;
+align-items: center;
+border: 1.5px solid rgba(0,0,0,0.15);
+border-radius: 25px;
+padding: 0.35rem 1rem;
+gap: 0.5rem;
+}
+.search-box input {
+border: none;
+outline: none;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 0.85rem;
+background: transparent;
+width: 180px;
+color: var(–dark);
+}
+.search-box svg { color: var(–warm-gray); }
+
+/* PRODUCTS GRID */
+.section-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 2rem;
+padding: 2.5rem 2rem 0.5rem;
+}
+.section-sub {
+padding: 0 2rem 1.5rem;
+color: var(–warm-gray);
+font-size: 0.9rem;
+}
+
+.products-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+gap: 1.5rem;
+padding: 0 2rem 3rem;
+}
+
+.product-card {
+background: var(–card-bg);
+border-radius: 16px;
+overflow: hidden;
+border: 1px solid rgba(0,0,0,0.06);
+transition: transform 0.25s, box-shadow 0.25s;
+cursor: pointer;
+animation: fadeUp 0.5s ease both;
+}
+.product-card:hover {
+transform: translateY(-6px);
+box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.product-img {
+width: 100%;
+height: 220px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 5rem;
+background: linear-gradient(145deg, #f0e8dc, #e8ddd0);
+position: relative;
+overflow: hidden;
+}
+.product-img::after {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.05));
+}
+
+.badge {
+position: absolute;
+top: 12px;
+left: 12px;
+background: var(–rust);
+color: white;
+font-size: 0.7rem;
+font-weight: 500;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+padding: 3px 10px;
+border-radius: 20px;
+z-index: 2;
+}
+.badge.new { background: var(–sage); }
+
+.product-info { padding: 1.2rem; }
+.product-category {
+font-size: 0.7rem;
+text-transform: uppercase;
+letter-spacing: 0.15em;
+color: var(–warm-gray);
+margin-bottom: 0.4rem;
+}
+.product-name {
+font-family: ‘Playfair Display’, serif;
+font-size: 1.1rem;
+margin-bottom: 0.3rem;
+line-height: 1.3;
+}
+.product-desc {
+font-size: 0.8rem;
+color: var(–warm-gray);
+line-height: 1.5;
+margin-bottom: 1rem;
+}
+.product-footer {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.price {
+font-size: 1.2rem;
+font-weight: 500;
+color: var(–rust);
+}
+.price .original {
+font-size: 0.8rem;
+color: var(–warm-gray);
+text-decoration: line-through;
+margin-left: 0.3rem;
+font-weight: 400;
+}
+
+.add-btn {
+background: var(–dark);
+color: var(–cream);
+border: none;
+border-radius: 25px;
+padding: 0.45rem 1rem;
+font-size: 0.8rem;
+cursor: pointer;
+font-family: ‘DM Sans’, sans-serif;
+transition: background 0.2s, transform 0.1s;
+display: flex;
+align-items: center;
+gap: 0.35rem;
+}
+.add-btn:hover { background: var(–rust); transform: scale(1.05); }
+.add-btn.added { background: var(–sage); }
+
+/* CART SIDEBAR */
+.cart-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.5);
+z-index: 200;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: all; }
+
+.cart-sidebar {
+position: fixed;
+right: -420px;
+top: 0;
+width: min(420px, 100vw);
+height: 100vh;
+background: var(–cream);
+z-index: 201;
+transition: right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+display: flex;
+flex-direction: column;
+box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+}
+.cart-sidebar.open { right: 0; }
+
+.cart-header {
+background: var(–dark);
+color: var(–cream);
+padding: 1.5rem 1.5rem;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.cart-header h2 { font-family: ‘Playfair Display’, serif; font-size: 1.4rem; }
+.close-btn {
+background: none;
+border: none;
+color: var(–cream);
+cursor: pointer;
+font-size: 1.5rem;
+line-height: 1;
+opacity: 0.7;
+transition: opacity 0.2s;
+}
+.close-btn:hover { opacity: 1; }
+
+.cart-items { flex: 1; overflow-y: auto; padding: 1rem; }
+
+.cart-item {
+display: flex;
+align-items: center;
+gap: 1rem;
+padding: 1rem;
+background: white;
+border-radius: 12px;
+margin-bottom: 0.75rem;
+border: 1px solid rgba(0,0,0,0.06);
+}
+.cart-item-emoji { font-size: 2.5rem; width: 60px; text-align: center; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-family: ‘Playfair Display’, serif; font-size: 0.95rem; }
+.cart-item-price { color: var(–rust); font-size: 0.9rem; margin-top: 0.2rem; }
+.cart-item-qty {
+display: flex;
+align-items: center;
+gap: 0.5rem;
+margin-top: 0.5rem;
+}
+.qty-btn {
+width: 26px;
+height: 26px;
+border-radius: 50%;
+border: 1.5px solid rgba(0,0,0,0.15);
+background: transparent;
+cursor: pointer;
+font-size: 1rem;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 0.15s;
+font-family: monospace;
+}
+.qty-btn:hover { background: var(–dark); color: white; border-color: var(–dark); }
+.qty-num { font-size: 0.9rem; font-weight: 500; min-width: 20px; text-align: center; }
+.remove-btn {
+background: none;
+border: none;
+cursor: pointer;
+color: var(–warm-gray);
+font-size: 1.2rem;
+transition: color 0.15s;
+}
+.remove-btn:hover { color: var(–rust); }
+
+.empty-cart {
+text-align: center;
+padding: 3rem 1rem;
+color: var(–warm-gray);
+}
+.empty-cart .icon { font-size: 4rem; margin-bottom: 1rem; }
+.empty-cart p { font-family: ‘Playfair Display’, serif; font-size: 1.1rem; }
+
+.cart-footer {
+padding: 1.5rem;
+background: white;
+border-top: 1px solid rgba(0,0,0,0.08);
+}
+.cart-total {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 1rem;
+}
+.cart-total span { font-size: 0.9rem; color: var(–warm-gray); }
+.cart-total strong { font-family: ‘Playfair Display’, serif; font-size: 1.5rem; }
+.checkout-btn {
+width: 100%;
+background: var(–rust);
+color: white;
+border: none;
+padding: 1rem;
+border-radius: 12px;
+font-family: ‘DM Sans’, sans-serif;
+font-size: 1rem;
+font-weight: 500;
+cursor: pointer;
+transition: background 0.2s, transform 0.1s;
+letter-spacing: 0.05em;
+}
+.checkout-btn:hover { background: #a84d22; transform: scale(1.01); }
+.checkout-btn:disabled { background: var(–warm-gray); cursor: not-allowed; transform: none; }
+
+/* TOAST */
+.toast {
+position: fixed;
+bottom: 2rem;
+left: 50%;
+transform: translateX(-50%) translateY(100px);
+background: var(–dark);
+color: var(–cream);
+padding: 0.8rem 1.8rem;
+border-radius: 30px;
+font-size: 0.9rem;
+z-index: 300;
+transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* FOOTER */
+footer {
+background: var(–dark);
+color: rgba(255,255,255,0.5);
+text-align: center;
+padding: 2rem;
+font-size: 0.85rem;
+}
+footer strong { color: var(–gold); }
+
+/* MODAL */
+.modal-overlay {
+position: fixed;
+inset: 0;
+background: rgba(0,0,0,0.6);
+z-index: 300;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+pointer-events: none;
+transition: opacity 0.3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+background: var(–cream);
+border-radius: 20px;
+max-width: 480px;
+width: 90%;
+overflow: hidden;
+transform: scale(0.9);
+transition: transform 0.3s;
+}
+.modal-overlay.open .modal { transform: scale(1); }
+.modal-img { height: 220px; display: flex; align-items: center; justify-content: center; font-size: 6rem; background: linear-gradient(145deg, #f0e8dc, #e8ddd0); }
+.modal-body { padding: 1.5rem; }
+.modal-body h2 { font-family: ‘Playfair Display’, serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.modal-body p { color: var(–warm-gray); line-height: 1.7; margin-bottom: 1rem; }
+.modal-actions { display: flex; gap: 1rem; }
+.modal-close-btn { flex: 1; padding: 0.75rem; border: 1.5px solid rgba(0,0,0,0.15); background: transparent; border-radius: 10px; cursor: pointer; font-family: ‘DM Sans’, sans-serif; transition: all 0.2s; }
+.modal-close-btn:hover { background: rgba(0,0,0,0.05); }
+.modal-add-btn { flex: 2; padding: 0.75rem; background: var(–rust); color: white; border: none; border-radius: 10px; cursor: pointer; font-family: ‘DM Sans’, sans-serif; font-size: 0.95rem; transition: background 0.2s; }
+.modal-add-btn:hover { background: #a84d22; }
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    Asmita
+    <span>Curated Collection</span>
+  </div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">New Arrivals</a>
+    <a href="#">Sale</a>
+    <a href="#">About</a>
+  </nav>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛍️ Cart
+    <div class="cart-count" id="cartCount">0</div>
+  </button>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Discover <em>Timeless</em><br>Style & Elegance</h1>
+    <p>Curated collections of premium products — crafted with love, delivered with care. Shop what makes you feel extraordinary.</p>
+    <button class="hero-cta" onclick="document.querySelector('.products-grid').scrollIntoView({behavior:'smooth'})">
+      Explore Collection ↓
+    </button>
+  </div>
+  <div class="hero-badge">
+    <div class="big">200+</div>
+    <small>Happy Customers</small>
+  </div>
+</section>
+
+<div class="filter-bar">
+  <span>Filter:</span>
+  <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+  <button class="filter-btn" onclick="filterProducts('fashion', this)">Fashion</button>
+  <button class="filter-btn" onclick="filterProducts('beauty', this)">Beauty</button>
+  <button class="filter-btn" onclick="filterProducts('home', this)">Home</button>
+  <button class="filter-btn" onclick="filterProducts('accessories', this)">Accessories</button>
+  <div class="search-box">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="Search products..." oninput="handleSearch()">
+  </div>
+</div>
+
+<h2 class="section-title">Our Collection</h2>
+<p class="section-sub">Handpicked products just for you</p>
+
+<div class="products-grid" id="productsGrid"></div>
+
+<!-- Cart Sidebar -->
+
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>Your Cart 🛍️</h2>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total Amount</span>
+      <strong id="cartTotal">₹0</strong>
+    </div>
+    <button class="checkout-btn" id="checkoutBtn" onclick="checkout()" disabled>
+      Proceed to Checkout →
+    </button>
+  </div>
+</div>
+
+<!-- Product Modal -->
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-body">
+      <div class="product-category" id="modalCat"></div>
+      <h2 id="modalName"></h2>
+      <p id="modalDesc"></p>
+      <div style="margin-bottom:1.2rem">
+        <span class="price" id="modalPrice"></span>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-close-btn" onclick="document.getElementById('modalOverlay').classList.remove('open')">Close</button>
+        <button class="modal-add-btn" id="modalAddBtn">Add to Cart 🛒</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <p>© 2025 <strong>Asmita Store</strong> · Made with ❤️ · All rights reserved</p>
+</footer>
+
+<script>
+const products = [
+  { id:1, name:"Silk Kurta", emoji:"👗", category:"fashion", price:1299, original:1799, desc:"Luxurious silk kurta with hand-embroidered detailing. Perfect for festive occasions and gatherings.", badge:"Sale" },
+  { id:2, name:"Gold Jhumkas", emoji:"💛", category:"accessories", price:849, original:null, desc:"Traditional gold-tone jhumka earrings with pearl drops. Handcrafted by artisans.", badge:"New" },
+  { id:3, name:"Rose Face Serum", emoji:"🌹", category:"beauty", price:699, original:899, desc:"Hydrating rose extract serum for glowing, radiant skin. Suitable for all skin types.", badge:"Sale" },
+  { id:4, name:"Ethnic Tote Bag", emoji:"👜", category:"accessories", price:1199, original:null, desc:"Handwoven cotton tote with traditional block print design. Spacious and sustainable.", badge:null },
+  { id:5, name:"Sandalwood Diffuser", emoji:"🕯️", category:"home", price:549, original:null, desc:"Elegant reed diffuser with authentic sandalwood fragrance. Fills your home with warmth.", badge:"New" },
+  { id:6, name:"Embroidered Dupatta", emoji:"🧣", category:"fashion", price:899, original:1299, desc:"Chiffon dupatta with delicate zari embroidery along the borders. Timeless elegance.", badge:"Sale" },
+  { id:7, name:"Mogra Perfume", emoji:"🌸", category:"beauty", price:1099, original:null, desc:"Floral mogra fragrance inspired by traditional Indian gardens. Long-lasting and enchanting.", badge:null },
+  { id:8, name:"Brass Diyas Set", emoji:"🪔", category:"home", price:399, original:599, desc:"Set of 6 hand-polished brass diyas. Perfect for puja and festive decoration.", badge:"Sale" },
+  { id:9, name:"Kundan Necklace", emoji:"📿", category:"accessories", price:2499, original:3299, desc:"Statement kundan necklace with colorful meenakari work. A bridal collection favourite.", badge:"Sale" },
+  { id:10, name:"Cotton Saree", emoji:"🥻", category:"fashion", price:1599, original:null, desc:"Soft handloom cotton saree with natural vegetable dye. Comfortable for everyday wear.", badge:"New" },
+  { id:11, name:"Ubtan Face Mask", emoji:"🍯", category:"beauty", price:349, original:null, desc:"Traditional ubtan face mask with turmeric, sandalwood and rose powder. Age-old beauty secret.", badge:null },
+  { id:12, name:"Macramé Wall Art", emoji:"🖼️", category:"home", price:799, original:null, desc:"Handcrafted macramé wall hanging with bohemian design. Adds texture and warmth to any room.", badge:"New" },
+];
+
+let cart = [];
+let currentFilter = 'all';
+let currentSearch = '';
+let selectedProduct = null;
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const filtered = products.filter(p => {
+    const matchCat = currentFilter === 'all' || p.category === currentFilter;
+    const matchSearch = p.name.toLowerCase().includes(currentSearch) || p.desc.toLowerCase().includes(currentSearch);
+    return matchCat && matchSearch;
+  });
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--warm-gray);font-family:Playfair Display,serif;font-size:1.2rem;">No products found 🌿</p>';
+    return;
+  }
+  grid.innerHTML = filtered.map((p, i) => `
+    <div class="product-card" style="animation-delay:${i*0.07}s" onclick="openModal(${p.id})">
+      <div class="product-img">
+        ${p.badge ? `<div class="badge ${p.badge==='New'?'new':''}">${p.badge}</div>` : ''}
+        ${p.emoji}
+      </div>
+      <div class="product-info">
+        <div class="product-category">${p.category}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div class="price">₹${p.price.toLocaleString()}${p.original ? `<span class="original">₹${p.original.toLocaleString()}</span>` : ''}</div>
+          <button class="add-btn ${isInCart(p.id)?'added':''}" onclick="event.stopPropagation();addToCart(${p.id}, this)">
+            ${isInCart(p.id) ? '✓ Added' : '+ Cart'}
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function isInCart(id) { return cart.some(c => c.id === id); }
+
+function addToCart(id, btn) {
+  const p = products.find(x => x.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ ...p, qty: 1 });
+  }
+  updateCart();
+  if (btn) {
+    btn.textContent = '✓ Added';
+    btn.classList.add('added');
+  }
+  showToast(`${p.emoji} ${p.name} added to cart!`);
+}
+
+function updateCart() {
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  document.getElementById('cartCount').textContent = count;
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  document.getElementById('cartTotal').textContent = '₹' + total.toLocaleString();
+  document.getElementById('checkoutBtn').disabled = cart.length === 0;
+
+  const container = document.getElementById('cartItems');
+  if (cart.length === 0) {
+    container.innerHTML = `<div class="empty-cart"><div class="icon">🛍️</div><p>Your cart is empty</p></div>`;
+    return;
+  }
+  container.innerHTML = cart.map(c => `
+    <div class="cart-item">
+      <div class="cart-item-emoji">${c.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-price">₹${(c.price * c.qty).toLocaleString()}</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+          <span class="qty-num">${c.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${c.id})">🗑</button>
+    </div>
+  `).join('');
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else updateCart();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCart();
+  renderProducts();
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+function filterProducts(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+}
+
+function handleSearch() {
+  currentSearch = document.getElementById('searchInput').value.toLowerCase();
+  renderProducts();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function openModal(id) {
+  selectedProduct = products.find(p => p.id === id);
+  document.getElementById('modalImg').textContent = selectedProduct.emoji;
+  document.getElementById('modalCat').textContent = selectedProduct.category;
+  document.getElementById('modalName').textContent = selectedProduct.name;
+  document.getElementById('modalDesc').textContent = selectedProduct.desc;
+  document.getElementById('modalPrice').innerHTML = `₹${selectedProduct.price.toLocaleString()}${selectedProduct.original ? ` <span class="original" style="font-size:0.85rem;color:var(--warm-gray);text-decoration:line-through">₹${selectedProduct.original.toLocaleString()}</span>` : ''}`;
+  const addBtn = document.getElementById('modalAddBtn');
+  addBtn.onclick = () => { addToCart(selectedProduct.id, null); renderProducts(); document.getElementById('modalOverlay').classList.remove('open'); };
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+}
+
+function checkout() {
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  showToast(`🎉 Order placed! Total: ₹${total.toLocaleString()}`);
+  cart = [];
+  updateCart();
+  renderProducts();
+  toggleCart();
+}
+
+renderProducts();
+updateCart();
+</script>
+
+</body>
+</html>
